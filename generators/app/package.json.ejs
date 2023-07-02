@@ -15,7 +15,7 @@ to: package.json
   "scripts": {
   <% if (locals.yarn) {%>
     <%# "link-workspaces": "nb-lnw",%>
-    "postinstall": "husky install && <%- pmRun %> link-workspaces && <%- pmRun %> build",
+    "postinstall": "husky install && <%- pmRun %> build",
   <% } else {%>
     "bootstrap": "lerna bootstrap",
     "postinstall": "husky install && <%- pmRun %> -s bootstrap && <%- pmRun %> -s update-ts-project-refs",
