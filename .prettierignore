@@ -1,0 +1,7 @@
+.github/
+/coverage
+**/.sandbox
+generators
+*.json
+CHANGELOG.md
+*.yml

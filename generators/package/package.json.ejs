@@ -1,0 +1,63 @@
+---
+to: <%- targetDir || 'packages' %>/<%- projectName %>/package.json
+---
+<% const pmRun = locals.yarn ? 'yarn run' : 'npm run'%>
+{
+  "name": "<%- name %>",
+  "description": "<%- description %>",
+  "version": "0.1.0",
+  "keywords": [
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=16"
+  },
+  "author": "<%- author %>",
+  "license": "<%- license %>",
+  "publishConfig": {
+  <% if (flat) { %>
+    "directory": "dist",
+  <% } %>
+    "access": "public"
+  },
+  "scripts": {
+  <% if (flat) { %>
+    "version": "yarn run copy:assets",
+    "copy:assets": "cpy 'package.json' 'LICENSE' 'README.md' 'CHANGELOG.md' dist",
+    "build": "nb-tsc && yarn run copy:assets",
+  <% } else { %>
+    "build": "nb-tsc",
+  <% } %>
+    "clean": "del '<%-archiveName%>*.tgz' 'dist/*' '*.tsbuildinfo' 'package'",
+    "pretest": "<%-pmRun%> clean && <%-pmRun%> build",
+    "test": "<%-pmRun%> pretest && <%-pmRun%> jest",
+    "jest": "node --experimental-vm-modules $(yarn bin jest)"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@nutol/build": "^0.2.14",
+    "@nutol/eslint-config": "^0.2.9",
+    "@nutol/ts-config-esm": "^0.2.1",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.3.3",
+    "jest": "^29.5.0",
+    "tsx": "^3.12.7",
+    "del-cli": "^5.0.0"<% if (flat) { %>,
+    "cpy-cli": "^3.1.1"<% } %>
+  },
+<% if (flat) { %>
+  "files": [
+    "**/*",
+    "!__tests__"
+  ]
+<% } else { %>
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ]
+<% } %>
+}

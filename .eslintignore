@@ -1,0 +1,9 @@
+node_modules/
+generators/
+coverage/
+/sandbox
+**/*.d.ts
+*.ejs
+*.toml
+.eslintrc.js
+commitlint.config.js
