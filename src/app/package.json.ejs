@@ -45,7 +45,7 @@ to: package.json
     "build:full": "npm ci --ignore-scripts && lerna bootstrap --ci && <%- pmRun %> clean && <%- pmRun %> build",
   <% } %>
     "pretest": "<%- pmRun %> clean && <%- pmRun %> build",
-    "test": "<%- pmRun %> pretest && <%- pmRun %> lerna run test && <%- pmRun %> posttest",
+    "test": "<%- pmRun %> pretest && lerna run test && <%- pmRun %> posttest",
     "posttest": "<%- pmRun %> lint",
     "test:ci": "lerna run test"
   },
